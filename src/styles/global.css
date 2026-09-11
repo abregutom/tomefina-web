@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Didot';
+  src: url('/fonts/Didot-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Limoncello Recipe';
+  src: url('/fonts/LimoncelloRecipe-Regular.woff2') format('woff2'),
+       url('/fonts/LimoncelloRecipe-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-didot: 'Didot', serif;
+  --font-limoncello: 'Limoncello Recipe', cursive;
+  --font-montserrat: 'Montserrat', sans-serif;
+
+  --color-pink: #FFE7EF;
+  --color-coral: #EE563F;
+  --color-blue: #4B7AC8;
+  --color-light-blue: #82A8E7;
+  --color-olive: #706B2E;
+  --color-yellow: #F5F3C2;
+  --color-orange: #EE7E23;
+  --color-peach: #FFE3CC;
+  --color-cream: #FDFDF3;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
