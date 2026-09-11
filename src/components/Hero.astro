@@ -1,10 +1,12 @@
 ---
+import HeroFrame from './HeroFrame.astro';
 ---
 
-<section id="hero" class="bg-[#FFE7EF] py-16 md:py-24 px-4 relative overflow-hidden">
-  <div class="max-w-[1080px] mx-auto flex flex-col md:flex-row items-center gap-8">
-    <div class="flex-1 flex justify-center relative">
-      <img src="/images/grupo-illustration.svg" alt="Decoración" class="w-full max-w-[558px]" />
+<section id="hero" class="bg-[#FFE7EF] py-20 md:py-32 px-4 relative overflow-hidden min-h-[640px] md:min-h-[760px] flex items-center justify-center">
+  <HeroFrame />
+  <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center gap-8 px-6 py-10 md:px-14 md:py-16">
+    <div class="flex-1 md:flex-[1.5] lg:flex-[1.7] flex justify-center md:justify-start relative md:-ml-6 lg:-ml-12 min-w-0">
+      <img src="/images/grupo-illustration.svg" alt="Decoración" class="w-full max-w-[620px] md:max-w-[760px] lg:max-w-[860px]" />
 
       <div class="drone-animation absolute inset-0 pointer-events-none">
         <img src="/images/screenshot2.png" alt="Dron" class="drone drone-1" />
@@ -13,7 +15,7 @@
       </div>
     </div>
 
-    <div class="flex-1 text-center md:text-left">
+    <div class="flex-1 md:flex-[1.1] text-center">
       <h1 class="font-[family-name:var(--font-limoncello)] text-[#EE563F] text-4xl md:text-[65px] leading-[1.02em] mb-6 whitespace-nowrap">
         Tomefina dice que sí
       </h1>
@@ -31,7 +33,7 @@
         </p>
       </div>
 
-      <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-8">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-8">
         <a
           href="https://maps.app.goo.gl/cmaKWDkdTBt7E7iF8"
           target="_blank"
@@ -48,15 +50,15 @@
 <style>
   .drone {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     opacity: 0;
   }
 
   @media (min-width: 768px) {
     .drone {
-      width: 50px;
-      height: 50px;
+      width: 34px;
+      height: 34px;
     }
   }
 
