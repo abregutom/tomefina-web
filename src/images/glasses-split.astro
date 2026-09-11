@@ -1,0 +1,74 @@
+---
+const leftSrc = "/images/20260911_220810_no_bg_left.png";
+const rightSrc = "/images/20260911_220810_no_bg_right.png";
+const alt = "Copas individuales y brindis";
+const aspectRatio = "1800 / 533";
+---
+
+<div
+  class="relative w-full overflow-hidden"
+  style={`aspect-ratio: ${aspectRatio};`}
+  aria-hidden="true"
+>  <img
+    src={leftSrc}
+    alt=""
+    class="absolute inset-0 w-full h-full object-contain image-fit-left animate-fade"
+    style="animation-delay: 0.1s; transform-origin: center center;"
+    loading="lazy"
+  />
+  <img
+    src={rightSrc}
+    alt=""
+    class="absolute inset-0 w-full h-full object-contain image-fit-right animate-fade-and-slide"
+    style="animation-delay: 0.9s; animation-fill-mode: both; transform-origin: center center;"
+    loading="lazy"
+  />
+</div>
+
+<style>
+  .image-fit-left,
+  .image-fit-right {
+    object-position: 50% 50%;
+  }
+
+  .animate-fade,
+  .animate-fade-and-slide {
+    opacity: 0;
+    animation: fadeIn 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  .animate-fade-and-slide {
+    animation-name: fadeInAndSlide;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInAndSlide {
+    0% {
+      opacity: 0.01;
+      transform: scale(1.05);
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade,
+    .animate-fade-and-slide {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

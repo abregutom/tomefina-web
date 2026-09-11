@@ -1,10 +1,23 @@
 ---
+import GlassesSplit from '../images/glasses-split.astro';
+
+// Google Apps Script Web App URL that appends submissions to a Google Sheet.
+// See instructions given to set this up; paste the deployed /exec URL here.
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzZLSodUl4E8ssymQjth_lRlmijEJ4T_d78-P2PpsJhYmGhFc1wk4_P9X1KsHfyQWLkxg/exec';
+
+const dietas = [
+  'Como todo',
+  'Vegetariano',
+  'Vegano',
+  'Celíaco',
+  'Intolerante a la lactosa',
+];
 ---
 
 <section id="rsvp" class="bg-[#F5F3C2] py-16 md:py-24 px-4 relative">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
-    <div class="flex-1 flex justify-center">
-      <img src="/images/vasos-brindando.svg" alt="Vasos brindando" class="w-full max-w-[386px]" />
+    <div class="flex-1 flex justify-center">        <GlassesSplit />
+
     </div>
 
     <div class="flex-1 text-center md:text-left">
@@ -18,12 +31,166 @@
         tus datos y restricciones
       </p>
 
-      <a
-        href="#rsvp-form"
+      <button
+        type="button"
+        id="rsvp-open-form"
         class="inline-block border border-[#706B2E] px-8 py-4 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-lg md:text-xl tracking-[0.04em] uppercase hover:bg-[#706B2E] hover:text-[#F5F3C2] transition-colors"
       >
         completar form
-      </a>
+      </button>
     </div>
   </div>
 </section>
+
+<dialog
+  id="rsvp-form-dialog"
+  class="m-auto max-w-2xl w-[calc(100%-2rem)] p-0 bg-transparent backdrop:bg-[#706B2E]/60"
+>
+  <div class="relative bg-[#FDFDF3] border border-[#706B2E]/40 p-5 md:p-8 max-h-[90vh] overflow-y-auto w-full">
+    <button
+      type="button"
+      id="rsvp-close-form"
+      aria-label="Cerrar"
+      class="absolute top-3 right-3 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-2xl leading-none hover:opacity-60 transition-opacity"
+    >
+      &times;
+    </button>
+
+    <form id="rsvp-form-el" data-endpoint={RSVP_ENDPOINT} novalidate>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label
+            for="rsvp-nombre"
+            class="block font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em] uppercase mb-1"
+          >
+            Nombre
+          </label>
+          <input
+            type="text"
+            id="rsvp-nombre"
+            name="nombre"
+            required
+            class="w-full bg-transparent border-0 border-b border-[#706B2E]/50 focus:border-[#706B2E] outline-none py-1.5 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-base placeholder:text-[#706B2E]/40 transition-colors"
+          />
+        </div>
+
+        <div>
+          <label
+            for="rsvp-apellido"
+            class="block font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em] uppercase mb-1"
+          >
+            Apellido
+          </label>
+          <input
+            type="text"
+            id="rsvp-apellido"
+            name="apellido"
+            required
+            class="w-full bg-transparent border-0 border-b border-[#706B2E]/50 focus:border-[#706B2E] outline-none py-1.5 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-base placeholder:text-[#706B2E]/40 transition-colors"
+          />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <span class="block font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em] uppercase mb-2">
+          Dieta (marcá todas las que apliquen)
+        </span>
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+          {dietas.map((dieta) => (
+            <label class="flex items-center gap-2 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm cursor-pointer">
+              <input
+                type="checkbox"
+                name="dieta"
+                value={dieta}
+                class="w-4 h-4 accent-[#706B2E] border-[#706B2E]"
+              />
+              {dieta}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label
+          for="rsvp-otra-alergia"
+          class="block font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em] uppercase mb-1"
+        >
+          Otra alergia a tener en cuenta (opcional)
+        </label>
+        <input
+          type="text"
+          id="rsvp-otra-alergia"
+          name="otraAlergia"
+          class="w-full bg-transparent border-0 border-b border-[#706B2E]/50 focus:border-[#706B2E] outline-none py-1.5 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-base placeholder:text-[#706B2E]/40 transition-colors"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full border border-[#706B2E] px-8 py-3 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-lg tracking-[0.04em] uppercase hover:bg-[#706B2E] hover:text-[#F5F3C2] transition-colors disabled:opacity-50"
+      >
+        Enviar
+      </button>
+
+      <p
+        id="rsvp-form-message"
+        role="status"
+        class="mt-3 text-center font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em]"
+      ></p>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('rsvp-form-dialog') as HTMLDialogElement | null;
+  const openButton = document.getElementById('rsvp-open-form');
+  const closeButton = document.getElementById('rsvp-close-form');
+  const form = document.getElementById('rsvp-form-el') as HTMLFormElement | null;
+  const message = document.getElementById('rsvp-form-message');
+
+  openButton?.addEventListener('click', () => dialog?.showModal());
+  closeButton?.addEventListener('click', () => dialog?.close());
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form || !message) return;
+
+    const endpoint = form.dataset.endpoint;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    if (!endpoint || endpoint.startsWith('REPLACE_WITH_')) {
+      message.textContent = 'El formulario todavía no está conectado. Avisá a Tom y Fina.';
+      return;
+    }
+
+    const formData = new FormData(form);
+    const payload = {
+      nombre: formData.get('nombre'),
+      apellido: formData.get('apellido'),
+      dieta: formData.getAll('dieta'),
+      otraAlergia: formData.get('otraAlergia') || '',
+    };
+
+    submitButton?.setAttribute('disabled', 'true');
+    message.textContent = 'Enviando...';
+
+    try {
+      await fetch(endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+
+      form.reset();
+      message.textContent = '¡Gracias! Ya recibimos tu respuesta.';
+    } catch (err) {
+      message.textContent = 'Hubo un error al enviar. Probá de nuevo en un rato.';
+    } finally {
+      submitButton?.removeAttribute('disabled');
+    }
+  });
+</script>
