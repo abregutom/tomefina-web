@@ -1,15 +1,32 @@
 ---
 ---
 
-<div
-  class="absolute inset-2 sm:inset-3 md:inset-4 lg:inset-6 pointer-events-none"
-  aria-hidden="true"
->
-  <img src="/images/frame/frame-full.svg" alt="" class="w-full h-full" />
+<div class="hero-frame">
+  <slot />
 </div>
 
 <style>
-  img {
-    object-fit: fill;
+  .hero-frame {
+    border-style: solid;
+    border-width: 34px 46px;
+    border-image-source: url(/images/frame/frame-full.svg);
+    border-image-slice: 90 140 91 140 fill;
+    border-image-repeat: stretch;
+    border-image-width: 34px 46px;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    .hero-frame {
+      border-width: 48px 68px;
+      border-image-width: 48px 68px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-frame {
+      border-width: 60px 84px;
+      border-image-width: 60px 84px;
+    }
   }
 </style>

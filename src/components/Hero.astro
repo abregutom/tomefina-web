@@ -2,48 +2,51 @@
 import HeroFrame from './HeroFrame.astro';
 ---
 
-<section id="hero" class="bg-[#FFE7EF] py-20 md:py-32 px-4 relative overflow-hidden min-h-[640px] md:min-h-[760px] flex items-center justify-center">
-  <HeroFrame />
-  <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center gap-8 px-6 py-10 md:px-14 md:py-16">
-    <div class="flex-1 md:flex-[1.5] lg:flex-[1.7] flex justify-center md:justify-start relative md:-ml-6 lg:-ml-12 min-w-0">
-      <img src="/images/grupo-illustration.svg" alt="Decoración" class="w-full max-w-[620px] md:max-w-[760px] lg:max-w-[860px]" />
+<section id="hero" class="bg-[#FFE7EF] px-4 relative overflow-hidden min-h-dvh md:min-h-0 flex items-center justify-center py-10 md:py-20 xl:py-24">
+  <div class="w-full max-w-[1320px] mx-auto">
+    <HeroFrame>
+      <div class="flex flex-col md:flex-row items-center gap-6 md:gap-6 px-6 py-8 md:px-10 md:py-8 xl:py-10">
+        <div class="flex-1 flex justify-center md:justify-start relative min-w-0">
+          <img src="/images/pareja-mirador.svg" alt="Decoración" class="w-auto h-auto max-w-full max-h-[220px] sm:max-h-[260px] md:max-h-[300px] xl:max-h-[430px]" />
 
-      <div class="drone-animation absolute inset-0 pointer-events-none">
-        <img src="/images/screenshot2.png" alt="Dron" class="drone drone-1" />
-        <img src="/images/screenshot2.png" alt="Dron" class="drone drone-2" />
-        <img src="/images/screenshot2.png" alt="Dron" class="drone drone-3" />
+          <div class="drone-animation absolute inset-0 pointer-events-none">
+            <img src="/images/screenshot2.png" alt="Dron" class="drone drone-1" />
+            <img src="/images/screenshot2.png" alt="Dron" class="drone drone-2" />
+            <img src="/images/screenshot2.png" alt="Dron" class="drone drone-3" />
+          </div>
+        </div>
+
+        <div class="flex-1 text-center">
+          <h1 class="font-[family-name:var(--font-limoncello)] text-[clamp(14px,5vw,25px)] md:text-[clamp(26px,3vw,31px)] xl:text-[50px] whitespace-nowrap text-[#EE563F] leading-[1.02em] mb-4">
+            Tomefina dice que sí
+          </h1>
+
+          <p class="font-[family-name:var(--font-didot)] text-[clamp(24px,2.8vw,30px)] xl:text-[48px] whitespace-nowrap text-[#EE563F] leading-[1.02em] tracking-[0.04em] lowercase mb-4">
+            19 · 12 · 2026
+          </p>
+
+          <div class="flex flex-col gap-2 mb-8">
+            <p class="font-[family-name:var(--font-montserrat)] text-[#EE563F] text-lg md:text-[28px] tracking-[0.04em] uppercase whitespace-nowrap">
+              18:30 hs
+            </p>
+            <p class="font-[family-name:var(--font-montserrat)] text-[#EE563F] text-lg md:text-[28px] tracking-[0.04em] whitespace-nowrap">
+              Finca Madero El Roble
+            </p>
+          </div>
+
+          <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-8">
+            <a
+              href="https://maps.app.goo.gl/cmaKWDkdTBt7E7iF8"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block border border-[#EE563F] px-8 py-4 font-[family-name:var(--font-montserrat)] text-[#EE563F] text-lg md:text-xl tracking-[0.04em] uppercase whitespace-nowrap hover:bg-[#EE563F] hover:text-white transition-colors"
+            >
+              Cómo llegar
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="flex-1 md:flex-[1.1] text-center">
-      <h1 class="font-[family-name:var(--font-limoncello)] text-[#EE563F] text-4xl md:text-[65px] leading-[1.02em] mb-6 whitespace-nowrap">
-        Tomefina dice que sí
-      </h1>
-
-      <p class="font-[family-name:var(--font-didot)] text-[#EE563F] text-4xl md:text-[65px] leading-[1.02em] tracking-[0.04em] lowercase mb-6">
-        19 · 12 · 2026
-      </p>
-
-      <div class="flex flex-col gap-2 mb-8">
-        <p class="font-[family-name:var(--font-montserrat)] text-[#EE563F] text-lg md:text-[28px] tracking-[0.04em] uppercase">
-          18:30 hs
-        </p>
-        <p class="font-[family-name:var(--font-montserrat)] text-[#EE563F] text-lg md:text-[28px] tracking-[0.04em]">
-          Finca Madero El Roble
-        </p>
-      </div>
-
-      <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-8">
-        <a
-          href="https://maps.app.goo.gl/cmaKWDkdTBt7E7iF8"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block border border-[#EE563F] px-8 py-4 font-[family-name:var(--font-montserrat)] text-[#EE563F] text-lg md:text-xl tracking-[0.04em] uppercase hover:bg-[#EE563F] hover:text-white transition-colors"
-        >
-          Cómo llegar
-        </a>
-      </div>
-    </div>
+    </HeroFrame>
   </div>
 </section>
 
