@@ -174,6 +174,15 @@ const dietas = [
         class="mt-3 text-center font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em]"
       ></p>
     </form>
+
+    <div id="rsvp-thanks" role="status" class="hidden text-center py-8">
+      <p class="font-[family-name:var(--font-limoncello)] text-[#706B2E] text-3xl mb-3">
+        ¡Gracias!
+      </p>
+      <p class="font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em] uppercase">
+        Ya recibimos tu respuesta.<br />
+      </p>
+    </div>
   </div>
 </dialog>
 
@@ -183,19 +192,29 @@ const dietas = [
   const closeButton = document.getElementById('rsvp-close-form');
   const form = document.getElementById('rsvp-form-el') as HTMLFormElement | null;
   const message = document.getElementById('rsvp-form-message');
+  const submitButton = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+  const thanksPanel = document.getElementById('rsvp-thanks');
+
+  function resetFormState() {
+    submitButton?.removeAttribute('disabled');
+    if (message) message.textContent = '';
+    form?.reset();
+    form?.classList.remove('hidden');
+    thanksPanel?.classList.add('hidden');
+  }
 
   openButtons.forEach((btn) => btn.addEventListener('click', () => dialog?.showModal()));
   closeButton?.addEventListener('click', () => dialog?.close());
   dialog?.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
   });
+  dialog?.addEventListener('close', resetFormState);
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form || !message) return;
 
     const endpoint = form.dataset.endpoint;
-    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 
     if (!endpoint || endpoint.startsWith('REPLACE_WITH_')) {
       message.textContent = 'El formulario todavía no está conectado. Avisá a Tom y Fina.';
@@ -222,10 +241,11 @@ const dietas = [
       });
 
       form.reset();
-      message.textContent = '¡Gracias! Ya recibimos tu respuesta.';
+      message.textContent = '';
+      form.classList.add('hidden');
+      thanksPanel?.classList.remove('hidden');
     } catch (err) {
       message.textContent = 'Hubo un error al enviar. Probá de nuevo en un rato.';
-    } finally {
       submitButton?.removeAttribute('disabled');
     }
   });
