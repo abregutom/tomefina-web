@@ -229,28 +229,42 @@ const dietas = [
       otraAlergia: formData.get('otraAlergia') || '',
     };
 
+    if (navigator.onLine === false) {
+      message.textContent = 'Estás sin conexión. Probá de nuevo cuando tengas internet.';
+      submitButton?.removeAttribute('disabled');
+      return;
+    }
+
     submitButton?.setAttribute('disabled', 'true');
     message.textContent = 'Enviando...';
 
-    const showSuccess = () => {
+    // Keep "Enviando..." on screen for a moment even when the send resolves instantly,
+    // so it doesn't look like the click did nothing before jumping to the thank-you panel.
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
+
+    const showSuccess = async () => {
+      await minDelay;
       form.reset();
       message.textContent = '';
       form.classList.add('hidden');
       thanksPanel?.classList.remove('hidden');
     };
 
-    const showError = () => {
+    const showError = async () => {
+      await minDelay;
       message.textContent = 'Hubo un error al enviar. Probá de nuevo en un rato.';
       submitButton?.removeAttribute('disabled');
     };
 
     // Google Apps Script responds via a redirect that some mobile browsers mishandle
     // under fetch's no-cors mode, throwing even though doPost already completed server-side.
-    // sendBeacon is fire-and-forget by design (no response to mishandle) and avoids this.
+    // sendBeacon is fire-and-forget by design (no response to mishandle) and avoids this,
+    // but note it only confirms the request was queued, not that it reached the server —
+    // an opaque no-cors response has the same limitation, so this isn't a new trade-off.
     if (navigator.sendBeacon) {
       const body = new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=utf-8' });
       if (navigator.sendBeacon(endpoint, body)) {
-        showSuccess();
+        await showSuccess();
         return;
       }
     }
@@ -263,9 +277,9 @@ const dietas = [
         body: JSON.stringify(payload),
       });
 
-      showSuccess();
+      await showSuccess();
     } catch (err) {
-      showError();
+      await showError();
     }
   });
 </script>
