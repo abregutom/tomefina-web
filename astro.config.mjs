@@ -7,5 +7,10 @@ export default defineConfig({
   adapter: cloudflare(),
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Keep scripts as external files instead of inlining them into the HTML,
+      // which would violate the strict `script-src 'self'` CSP in public/_headers.
+      assetsInlineLimit: 0,
+    },
   },
 });
