@@ -232,6 +232,29 @@ const dietas = [
     submitButton?.setAttribute('disabled', 'true');
     message.textContent = 'Enviando...';
 
+    const showSuccess = () => {
+      form.reset();
+      message.textContent = '';
+      form.classList.add('hidden');
+      thanksPanel?.classList.remove('hidden');
+    };
+
+    const showError = () => {
+      message.textContent = 'Hubo un error al enviar. Probá de nuevo en un rato.';
+      submitButton?.removeAttribute('disabled');
+    };
+
+    // Google Apps Script responds via a redirect that some mobile browsers mishandle
+    // under fetch's no-cors mode, throwing even though doPost already completed server-side.
+    // sendBeacon is fire-and-forget by design (no response to mishandle) and avoids this.
+    if (navigator.sendBeacon) {
+      const body = new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=utf-8' });
+      if (navigator.sendBeacon(endpoint, body)) {
+        showSuccess();
+        return;
+      }
+    }
+
     try {
       await fetch(endpoint, {
         method: 'POST',
@@ -240,13 +263,9 @@ const dietas = [
         body: JSON.stringify(payload),
       });
 
-      form.reset();
-      message.textContent = '';
-      form.classList.add('hidden');
-      thanksPanel?.classList.remove('hidden');
+      showSuccess();
     } catch (err) {
-      message.textContent = 'Hubo un error al enviar. Probá de nuevo en un rato.';
-      submitButton?.removeAttribute('disabled');
+      showError();
     }
   });
 </script>
