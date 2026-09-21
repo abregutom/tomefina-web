@@ -161,6 +161,32 @@ const dietas = [
         />
       </div>
 
+      <div class="mb-5">
+        <span class="block font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm tracking-[0.04em] uppercase mb-2">
+          ¿Te gustaría ir en combi?
+        </span>
+        <div class="flex gap-x-5 gap-y-2">
+          <label class="flex items-center gap-2 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm cursor-pointer">
+            <input
+              type="radio"
+              name="combi"
+              value="si"
+              class="w-4 h-4 accent-[#706B2E] border-[#706B2E]"
+            />
+            Sí
+          </label>
+          <label class="flex items-center gap-2 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-sm cursor-pointer">
+            <input
+              type="radio"
+              name="combi"
+              value="no"
+              class="w-4 h-4 accent-[#706B2E] border-[#706B2E]"
+            />
+            No
+          </label>
+        </div>
+      </div>
+
       <button
         type="submit"
         class="w-full border border-[#706B2E] px-8 py-3 font-[family-name:var(--font-montserrat)] text-[#706B2E] text-lg tracking-[0.04em] uppercase hover:bg-[#706B2E] hover:text-[#F5F3C2] transition-colors disabled:opacity-50"
@@ -227,6 +253,7 @@ const dietas = [
       apellido: formData.get('apellido'),
       dieta: formData.getAll('dieta'),
       otraAlergia: formData.get('otraAlergia') || '',
+      combi: formData.get('combi') || '',
     };
 
     if (navigator.onLine === false) {
